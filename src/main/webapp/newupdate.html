@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!-- 网页使用的语言 -->
+<html lang="zh-CN">
+    <head>
+    	<base href="<%=basePath%>"/>
+        <!-- 指定字符集 -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>修改用户</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="js/jquery-2.1.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        
+        <script>
+          /*
+            表单校验：
+              1.用户名：单词字符，长度8到20位
+              2.密码：单词字符，长度8到20位
+              3.email：邮件格式
+              4.姓名：非空
+              5.手机号：手机号格式
+              6.出生日期：非空
+              7.验证码：非空
+           */
+    
+          //校验用户名
+          //单词字符，长度8到20位
+          /*function checkUsername() {
+                    //1.获取用户名值
+            var username = $("#username").val();
+            //2.定义正则
+            var reg_username = /^\w{8,20}$/;
+            
+            //3.判断，给出提示信息
+              var flag = reg_username.test(username);
+              if(flag){
+                  //用户名合法
+                        $("#username").css("border","");
+            }else{
+                  //用户名非法,加一个红色边框
+              $("#username").css("border","1px solid red");
+            }
+              
+                    return flag;
+                }
+                //校验密码
+                function checkPassword() {
+                    //1.获取密码值
+                    var password = $("#password").val();
+                    //2.定义正则
+                    var reg_password = /^\w{8,20}$/;
+    
+                    //3.判断，给出提示信息
+                    var flag = reg_password.test(password);
+                    if(flag){
+                        //密码合法
+                        $("#password").css("border","");
+                    }else{
+                        //密码非法,加一个红色边框
+                        $("#password").css("border","1px solid red");
+                    }
+    
+                    return flag;
+                }*/
+          //校验姓名
+          function checkName(){
+            //1.获取姓名
+            var name = $("#name").val();
+            //2.定义正则		张三
+            var reg_name =/^[\u4e00-\u9fa5]{2,16}$/;
+            //3.判断
+            var flag = reg_name.test(name);
+            if(flag){
+              $("#name").css("border","");
+            }else{
+              $("#name").css("border","1px solid red");
+            }
+            return flag;
+          }
+          //校验专业
+          function checkZhuanYe() {
+            //1.获取密码值
+            var zhuanye = $("#zhuanye").val();
+            //2.定义正则
+            var reg_zhuanye = /^[\u4e00-\u9fa5]{2,16}$/;
+    
+            //3.判断，给出提示信息
+            var flag = reg_zhuanye.test(zhuanye);
+            if(flag){
+              //密码合法
+              $("#zhuanye").css("border","");
+            }else{
+              //密码非法,加一个红色边框
+              $("#zhuanye").css("border","1px solid red");
+            }
+    
+            return flag;
+          }
+          //校验班级
+          function checkBanJi(){
+            //1.获取班级
+            var banji = $("#banji").val();
+            //2.定义正则		计算机三班
+            var reg_banji =/^[\u4e00-\u9fa5]{2,16}$/;
+            //3.判断
+            var flag = reg_banji.test(banji);
+            if(flag){
+              $("#banji").css("border","");
+            }else{
+              $("#banji").css("border","1px solid red");
+            }
+            return flag;
+          }
+          //校验学号
+          function checkXueHao(){
+            //1.获取学号
+            var xuehao = $("#xuehao").val();
+            //2.定义正则		189198199
+            var reg_xuehao =/^\d{5,15}$/;
+            //3.判断
+            var flag = reg_xuehao.test(xuehao);
+            if(flag){
+              $("#xuehao").css("border","");
+            }else{
+              $("#xuehao").css("border","1px solid red");
+            }
+            return flag;
+          }
+          $(function () {
+                    //当表单提交时，调用所有的校验方法
+            $("#registerForm").submit(function(){
+              //1.发送数据到服务器
+              if(checkName()&& checkZhuanYe()&& checkBanJi()
+                  && checkXueHao()){
+                  //校验通过,发送ajax请求，提交表单的数据   username=zhangsan&password=123
+    
+                $.post("registUserServlet",$(this).serialize(),function(data){
+                  //处理服务器响应的数据  data  {flag:true,errorMsg:"注册失败"}
+    
+                  if(data.flag){
+                      //注册成功，跳转成功页面
+                    location.href="register_ok.html";
+                  }else{
+                      //注册失败,给errorMsg添加提示信息
+                    $("#errorMsg").html(data.errorMsg);
+    
+                  }
+                });
+    
+              }
+              //2.不让页面跳转
+                        return false;
+                        //如果这个方法没有返回值，或者返回为true，则表单提交，如果返回为false，则表单不提交
+            });
+    
+                    //当某一个组件失去焦点是，调用对应的校验方法
+            //$("#username").blur(checkUsername);
+                    //$("#password").blur(checkPassword);
+                    $("#name").blur(checkName);
+            $("#xuehao").blur(checkXueHao);
+            $("#zhuanye").blur(checkZhuanYe);
+            $("#banji").blur(checkBanJi);
+    
+                });
+    
+        </script>
+    </head>
+    <body>
+        <div class="container" style="width: 400px;">
+        <h3 style="text-align: center;">修改联系人</h3>
+        <form action="" method="post">
+          <div class="form-group">
+            <label for="name">姓名：</label>
+            <input type="text" class="form-control" id="name" name="name"  placeholder="请输入姓名" />
+          </div>
+          <div class="form-group">
+            <label for="zhuanye">专业:</label>
+            <input type="text" class="form-control" id="zhuanye"  name="zhuanye" placeholder="请输入专业" />
+          </div>
+
+          <div class="form-group">
+            <label for="banji">班级:</label>
+            <input type="text" class="form-control" id="banji"  name="banji" placeholder="请输入班级" />
+          </div>
+
+          <div class="form-group">
+            <label for="xuehao">学号：</label>
+            <input type="text" id="xuehao" class="form-control" name="xuehao" placeholder="请输入学号"/>
+          </div>
+          <div class="form-group">
+            <label>性别：</label>
+              <input type="radio" name="sex" value="男"  />男
+                <input type="radio" name="sex" value="女"  />女
+          </div>
+             <div class="form-group" style="text-align: center">
+                <input class="btn btn-primary" type="submit" value="提交" />
+                <input class="btn btn-default" type="reset" value="重置" />
+                <input class="btn btn-default" type="button" value="返回"/>
+             </div>
+        </form>
+        </div>
+    </body>
+</html>
