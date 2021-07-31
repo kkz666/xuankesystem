@@ -32,4 +32,32 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll(){
         return userDao.findAll();
     }
+    public boolean delete(User user){
+        if(user==null){
+            return false;
+        }else {
+            userDao.delete(user);
+            return true;
+        }
+    }
+    public User findByUsername(String username){
+        User u=userDao.findByUsername(username);
+        System.out.println(u.getUsername());
+        return u;
+    }
+    public boolean update(User user){
+        if(user==null){
+            return false;
+        }else{
+            userDao.update(user);
+            return true;
+        }
+    }
+    public int findId(User user){
+        if(user==null){
+            return -1;
+        }else{
+            return userDao.findId(user);
+        }
+    }
 }

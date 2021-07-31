@@ -73,5 +73,18 @@ public class User {
     public void setBanji(String banji) {
         this.banji = banji;
     }
-    
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", xuehao='" + xuehao + '\'' +
+                ", zhuanye='" + zhuanye + '\'' +
+                ", banji='" + banji + '\'' +
+                '}';
+    }
 }

@@ -41,4 +41,23 @@ public class UserDaoImpl implements UserDao {
         String sql = "select * from user ";
         return template.query(sql,new BeanPropertyRowMapper<User>(User.class));
     }
+    public boolean delete(User user){
+        String username= user.getUsername();
+        try {
+            String sql = "delete  from user where username = ? ";
+            template.update(sql,username);
+        }catch (Exception e){
+            return false;
+        }//出异常就返回null
+        return true;
+    }
+    public boolean update(User user){
+        return false;
+    }
+    public int findId(User user){
+        String sql = "select * from user where username = ? and password = ?";
+        user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), user.getUsername(),user.getPassword());
+        System.out.println(user);
+        return user.getUid();
+    }
 }

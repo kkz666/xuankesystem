@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+            $.get("findUserServlet",{},function (data) {
+                //{uid:1,name:'李四'}
+                var msg = "欢迎回来，"+data.name;
+                $("#span_username").html(msg);
+
+            });
+            //查询分类信息
+            $.get("categoryServlet",{},function (data) {
+                var lis="";
+                for(var i=0;i<data.length;i++){
+                    lis +="<tr>" +
+                        "<td>" + data[i].name+ "</td>" +
+                        "<td>" + data[i].sex+ "</td>" +
+                        "<td>" + data[i].xuehao + "</td>" +
+                        "<td>" + data[i].zhuanye+ "</td>" +
+                        "<td>" + data[i].banji+ "</td>" +
+                        "</tr>";
+                }
+                $("#tab").append(lis);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<span id="span_username"></span>
+<table id='tab'>
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>学号</th>
+        <th>专业</th>
+        <th>班级</th>
+    </tr>
+</table>
+</body>
+</html>

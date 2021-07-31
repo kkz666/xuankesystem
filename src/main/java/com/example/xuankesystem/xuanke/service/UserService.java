@@ -8,5 +8,9 @@ public interface UserService {
     boolean regist(User user);
     User login(User user);
     public List<User> findAll();
+    public boolean delete(User user);
+    public User findByUsername(String username);
+    public boolean update(User user);
+    public int findId(User user);
 }
 

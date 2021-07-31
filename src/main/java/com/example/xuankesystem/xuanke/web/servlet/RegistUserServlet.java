@@ -42,7 +42,7 @@ public class RegistUserServlet extends HttpServlet {
         //2.封装对象
         User user =new User();
         try{
-            BeanUtils.populate(user,map);
+            BeanUtils.populate(user,map);//赋值
         }catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
