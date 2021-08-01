@@ -21,6 +21,6 @@ public interface UserDao {
     public List<User>findAll();
     //public void updatemessage(User user);
     public boolean delete(User user);
-    public boolean update(User user);
-    public int findId(User user);
+    public boolean update(User user,int id);
+    public User findById(int id);
 }

@@ -45,19 +45,15 @@ public class UserServiceImpl implements UserService {
         System.out.println(u.getUsername());
         return u;
     }
-    public boolean update(User user){
+    public boolean update(User user,int id){
         if(user==null){
             return false;
         }else{
-            userDao.update(user);
-            return true;
+            return userDao.update(user,id);
         }
     }
-    public int findId(User user){
-        if(user==null){
-            return -1;
-        }else{
-            return userDao.findId(user);
-        }
+    public User findById(int id){
+        User u=userDao.findById(id);
+        return u;
     }
 }

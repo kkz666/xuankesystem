@@ -10,7 +10,7 @@ public class ResultInfo implements Serializable {
     private boolean flag;//后端返回结果正常为true，发生异常返回false
     private Object data;//后端返回结果数据对象
     private String errorMsg;//发生异常的错误消息
-
+    private boolean admin;
     //无参构造方法
     public ResultInfo() {
     }
@@ -37,8 +37,13 @@ public class ResultInfo implements Serializable {
         this.data = data;
         this.errorMsg = errorMsg;
     }
-
-    public boolean isFlag() {
+    public ResultInfo(boolean flag, Object data, String errorMsg,boolean admin) {
+        this.flag = flag;
+        this.data = data;
+        this.errorMsg = errorMsg;
+        this.admin=admin;
+    }
+    public boolean getFlag() {
         return flag;
     }
 
@@ -60,5 +65,13 @@ public class ResultInfo implements Serializable {
 
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
+    }
+
+    public boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin =admin;
     }
 }

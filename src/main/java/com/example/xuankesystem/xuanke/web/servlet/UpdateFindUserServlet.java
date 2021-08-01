@@ -11,31 +11,21 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-/**
- * 删除用户信息的servlet
- */
-@WebServlet("/deleteServlet")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/updateFindUserServlet")
+public class UpdateFindUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id=Integer.parseInt(request.getParameter("id"));
         UserService service=new UserServiceImpl();
         User u=service.findById(id);
-        boolean flag=service.delete(u);
-        ResultInfo info=new ResultInfo();
-        if(flag==false){
-            info.setFlag(false);
-            info.setErrorMsg("删除失败");
-        }else{
-            info.setFlag(true);
-        }
-        ObjectMapper mapper=new ObjectMapper();
-        response.setContentType("application/json;charset=utf-8");
-        mapper.writeValue(response.getOutputStream(),info);
+        //将id放入HttpSession中
+        request.getSession().setAttribute("UPDATEID_SERVE",id);
+        //转发跳转到修改页面填写修改数据
+        request.getRequestDispatcher("/newupdate.html").forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    this.doGet(request,response);
+this.doGet(request,response);
     }
 }

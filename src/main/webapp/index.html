@@ -1,51 +1,76 @@
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>列表展示</title>
-    <!-- Bootstrap -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>管理员登录</title>
+
+    <!-- 1. 导入CSS的全局样式 -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-	
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
     <script src="js/jquery-3.3.1.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <!--导入布局js，共享header和footer-->
-    <script type="text/javascript" src="js/include.js"></script>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script type="text/javascript">
+    </script>
+    <script>
+
+        $(function () {
+            //1.给登录按钮绑定单击事件
+            $("#btn_sub").click(function () {
+                //2.发送ajax请求，提交表单数据
+                $.post("loginServlet",$("#loginForm").serialize(),function (data) {
+                    //data : {flag:false,errorMsg:''}
+                    if(data.flag){
+                        //登录成功
+                        location.href="listshow1.html";
+                    }else{
+                        //登录失败
+                        $("#errorMsg").html(data.errorMsg);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-	<!--引入头部-->
-    <div id="header"></div>
-    <!-- banner start-->
-    <section id="banner">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
-            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-			    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-			    <span class="sr-only">Previous</span>
-			  </a>
-            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			    <span class="sr-only">Next</span>
-			  </a>
+<div class="container" style="width: 400px;">
+    <h3 style="text-align: center;">管理员登录</h3>
+    <form action="login" method="post" id="loginForm">
+        <div class="form-group">
+            <label for="username">用户名：</label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="请输入用户名"/>
         </div>
-    </section>
-    <!-- banner end-->
-    <!-- 旅游 start-->
 
-    <!-- 旅游 end-->
-   <!--导入底部-->
-    <div id="footer"></div>
+        <div class="form-group">
+            <label for="password">密码：</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="请输入密码"/>
+        </div>
 
+        <div class="form-inline">
+            <input name="check" type="text" placeholder="请输入验证码" autocomplete="off">
+            <span><img src="checkCode" alt="" onclick="changeCheckCode(this)"></span>
+            <script type="text/javascript">
+                //图片点击事件
+                function changeCheckCode(img) {
+                    img.src="checkCode?"+new Date().getTime();
+                }
+            </script>
+        </div>
+        <hr/>
+        <div class="form-group" style="text-align: center;">
+            <!--<input class="btn btn btn-primary" type="submit" value="登录">-->
+            <button type="button"  id="btn_sub">登录</button>
+        </div>
+    </form>
+
+    <!-- 出错显示的信息框 -->
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" >
+            <span>&times;</span>
+        </button>
+        <strong>登录失败!</strong>
+    </div>
+</div>
 </body>
 </html>

@@ -11,6 +11,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * 列表展示用户信息的servlet
+ */
 @WebServlet("/categoryServlet")
 public class CategoryServlet extends HttpServlet {
     @Override

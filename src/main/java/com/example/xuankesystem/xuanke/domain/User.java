@@ -1,7 +1,7 @@
 package com.example.xuankesystem.xuanke.domain;
 
 public class User {
-    private int uid;//用户id
+    private int id;//用户id
     private String username;//用户名，账号
     private String password;//密码
     private String name;//真实姓名
@@ -9,13 +9,13 @@ public class User {
     private String xuehao;//学号
     private String zhuanye;//专业
     private String banji;//班级
-
-    public int getUid() {
-        return uid;
+    private boolean admin=false;
+    public int getId() {
+        return id;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -74,17 +74,12 @@ public class User {
         this.banji = banji;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "uid=" + uid +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", xuehao='" + xuehao + '\'' +
-                ", zhuanye='" + zhuanye + '\'' +
-                ", banji='" + banji + '\'' +
-                '}';
+    public boolean getAdmin() {
+        return admin;
     }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
 }

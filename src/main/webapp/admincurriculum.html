@@ -11,7 +11,7 @@
     initial-scale: 初始的缩放比，为1:1 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>用户信息管理系统</title>
+    <title></title>
 
     <!-- 1. 导入CSS的全局样式 -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -33,15 +33,17 @@
 
             });
             //查询分类信息
-            $.get("categoryServlet",{},function (data) {
+            $.get("curriculumCategoryServlet",{},function (data) {
                 var lis="";
                 for(var i=0;i<data.length;i++){
                     lis +="<tr>" +
-                        "<td>" + data[i].name+ "</td>" +
-                        "<td>" + data[i].sex+ "</td>" +
-                        "<td>" + data[i].xuehao + "</td>" +
-                        "<td>" + data[i].zhuanye+ "</td>" +
-                        "<td>" + data[i].banji+ "</td>" +
+                        "<td>" + data[i].c_name+ "</td>" +
+                        "<td>" + data[i].credit+ "</td>" +
+                        "<td>" + data[i].t_name + "</td>" +
+                        "<td>" + data[i].limitnumber+ "</td>" +
+                        "<td>" + data[i].currentnumber+ "</td>" +
+                        "<td>" + data[i].totaltime+ "</td>" +
+                        "<td>" + data[i].detailtime+ "</td>" +
                         '<td><a class="btn btn-default btn-sm" href="updateFindUserServlet?id='+data[i].id+'">修改</a>&nbsp;<a class="btn btn-default btn-sm" href="deleteServlet?id='+data[i].id+'">删除</a></td>'+"</tr>";
                 }
                 lis+= '<tr><td colSpan="8" align="center"><a className="btn btn-primary" href="newadd.html">添加联系人</a></td></tr>';
@@ -57,12 +59,13 @@
     <h3 style="text-align: center">用户信息列表</h3>
     <table border="1" class="table table-bordered table-hover" id='tab'>
         <tr class="success">
-            <th>姓名</th>
-            <th>性别</th>
-            <th>学号</th>
-            <th>专业</th>
-            <th>班级</th>
-            <th>操作</th>
+            <th>课程名称</th>
+            <th>课程学分</th>
+            <th>教师名称</th>
+            <th>限选人数</th>
+            <th>当前人数</th>
+            <th>上课时间</th>
+            <th>具体时间</th>
         </tr>
 
     </table>

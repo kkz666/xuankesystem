@@ -42,22 +42,36 @@ public class UserDaoImpl implements UserDao {
         return template.query(sql,new BeanPropertyRowMapper<User>(User.class));
     }
     public boolean delete(User user){
-        String username= user.getUsername();
+        int id= user.getId();
         try {
-            String sql = "delete  from user where username = ? ";
-            template.update(sql,username);
+            String sql = "delete  from user where id = ? ";
+            template.update(sql,id);
         }catch (Exception e){
             return false;
         }//出异常就返回null
         return true;
     }
-    public boolean update(User user){
-        return false;
+    public boolean update(User user,int id){
+        String sex= user.getSex();
+        String name= user.getName();//真实姓名
+        String xuehao= user.getXuehao();//学号
+        String zhuanye= user.getZhuanye();//专业
+        String banji= user.getBanji();//班级
+        try {
+            String sql = "update user set name= ?,xuehao= ?,zhuanye = ?,banji= ? ,sex= ? where id= ?";
+            template.update(sql,name,xuehao,zhuanye,banji,sex,id);
+        }catch (Exception e){
+            return false;
+        }//出异常就返回null
+        return true;
     }
-    public int findId(User user){
-        String sql = "select * from user where username = ? and password = ?";
-        user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), user.getUsername(),user.getPassword());
-        System.out.println(user);
-        return user.getUid();
+    public User findById(int id){
+        User user =null;
+        try {
+            String sql = "select * from user where id = ? ";
+            user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), id);
+        }catch (Exception e){
+        }//出异常就返回null
+        return user;
     }
 }

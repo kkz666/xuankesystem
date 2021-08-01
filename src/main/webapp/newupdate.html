@@ -129,8 +129,22 @@
             return flag;
           }
           $(function () {
+              //表单回显功能
+              $.get("echoServlet",{},function (data) {
+                  $('#name').val(data[0].name+"");
+                  $('#zhuanye').val(data[0].zhuanye+"");
+                  $('#banji').val(data[0].banji+"");
+                  $('#xuehao').val(data[0].xuehao+"");
+                  if(data[0].sex=="男"){
+                  $('#nan').prop("checked",true);
+                  }
+                  else{
+                      $('#nu').prop("checked",true);
+                  }
+              });
+
                     //当表单提交时，调用所有的校验方法
-            $("#registerForm").submit(function(){
+            $("#updateForm").submit(function(){
               //1.发送数据到服务器
               if(checkName()&& checkZhuanYe()&& checkBanJi()
                   && checkXueHao()){
@@ -170,7 +184,7 @@
     <body>
         <div class="container" style="width: 400px;">
         <h3 style="text-align: center;">修改联系人</h3>
-        <form action="" method="post">
+        <form action="" method="post" id="updateForm">
           <div class="form-group">
             <label for="name">姓名：</label>
             <input type="text" class="form-control" id="name" name="name"  placeholder="请输入姓名" />
@@ -191,13 +205,17 @@
           </div>
           <div class="form-group">
             <label>性别：</label>
-              <input type="radio" name="sex" value="男"  />男
-                <input type="radio" name="sex" value="女"  />女
+              <input type="radio" name="sex" value="男" id="nan" />男
+                <input type="radio" name="sex" value="女" id="nu" />女
           </div>
              <div class="form-group" style="text-align: center">
-                <input class="btn btn-primary" type="submit" value="提交" />
+                <a href="update_ok.html">
+                 <input class="btn btn-primary" type="submit" value="提交" />
+                 </a>
                 <input class="btn btn-default" type="reset" value="重置" />
+                 <a href="listshow1.html">
                 <input class="btn btn-default" type="button" value="返回"/>
+                 </a>
              </div>
         </form>
         </div>
