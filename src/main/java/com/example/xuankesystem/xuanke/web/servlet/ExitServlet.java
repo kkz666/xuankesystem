@@ -10,7 +10,7 @@ public class ExitServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().invalidate();
-        response.sendRedirect(request.getContextPath()+"/login.html");
+        response.sendRedirect(request.getContextPath()+"/newlogin.html");
     }
 
     @Override

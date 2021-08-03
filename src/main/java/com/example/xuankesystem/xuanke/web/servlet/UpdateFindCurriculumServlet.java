@@ -1,30 +1,31 @@
 package com.example.xuankesystem.xuanke.web.servlet;
 
-import com.example.xuankesystem.xuanke.domain.ResultInfo;
+import com.example.xuankesystem.xuanke.domain.Curriculum;
 import com.example.xuankesystem.xuanke.domain.User;
+import com.example.xuankesystem.xuanke.service.CurriculumService;
 import com.example.xuankesystem.xuanke.service.UserService;
+import com.example.xuankesystem.xuanke.service.impl.CurriculumServiceImpl;
 import com.example.xuankesystem.xuanke.service.impl.UserServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/updateFindUserServlet")
-public class UpdateFindUserServlet extends HttpServlet {
+@WebServlet("/updateFindCurriculumServlet")
+public class UpdateFindCurriculumServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id=Integer.parseInt(request.getParameter("id"));
-        UserService service=new UserServiceImpl();
-        HttpSession session=request.getSession();
-        if(session.getAttribute("UPDATEID_SERVE")!=null){
-            session.removeAttribute("UPDATEID_SERVE");
-        }
+        CurriculumService service=new CurriculumServiceImpl();
         //将id放入HttpSession中
-        request.getSession().setAttribute("UPDATEID_SERVE",id);
+        HttpSession session=request.getSession();
+        if(session.getAttribute("CURRICULUMUPDATEID_SERVE")!=null){
+            session.removeAttribute("CURRICULUMUPDATEID_SERVE");
+        }
+        request.getSession().setAttribute("CURRICULUMUPDATEID_SERVE",id);
         //转发跳转到修改页面填写修改数据
-        request.getRequestDispatcher("/newupdate.html").forward(request,response);
+        request.getRequestDispatcher("/curriculumupdate.html").forward(request,response);
     }
 
     @Override

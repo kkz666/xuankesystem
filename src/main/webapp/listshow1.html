@@ -32,8 +32,7 @@
                 $("#span_username").html(msg);
 
             });
-            //查询分类信息
-            $.get("categoryServlet",{},function (data) {
+            $.post("categoryServlet",{},function (data) {
                 var lis="";
                 for(var i=0;i<data.length;i++){
                     lis +="<tr>" +
@@ -42,9 +41,11 @@
                         "<td>" + data[i].xuehao + "</td>" +
                         "<td>" + data[i].zhuanye+ "</td>" +
                         "<td>" + data[i].banji+ "</td>" +
-                        '<td><a class="btn btn-default btn-sm" href="updateFindUserServlet?id='+data[i].id+'">修改</a>&nbsp;<a class="btn btn-default btn-sm" href="deleteServlet?id='+data[i].id+'">删除</a></td>'+"</tr>";
+                        '<td><a class="btn btn-default btn-sm" href="updateFindUserServlet?id='+data[i].id+'">修改</a>&nbsp;'+
+                        '<a class="btn btn-default btn-sm" href="deleteServlet?id='+data[i].id+'">删除</a></td>'
+                        +"</tr>";
                 }
-                lis+= '<tr><td colSpan="8" align="center"><a className="btn btn-primary" href="newadd.html">添加联系人</a></td></tr>';
+                lis+= '<tr><td colSpan="8" align="center"><a className="btn btn-primary" href="newadd.html"><button>添加联系人</button></a></td></tr>';
                 $("#tab").append(lis);
             });
 
@@ -66,6 +67,11 @@
         </tr>
 
     </table>
+    <div style="text-align:center">
+        <a href="adminselect.html">
+            <button >返回选择界面</button>
+        </a>
+    </div>
 </div>
 </body>
 </html>

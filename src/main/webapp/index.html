@@ -23,7 +23,7 @@
                     //data : {flag:false,errorMsg:''}
                     if(data.flag){
                         //登录成功
-                        location.href="listshow1.html";
+                        location.href="adminselect.html";
                     }else{
                         //登录失败
                         $("#errorMsg").html(data.errorMsg);
@@ -69,7 +69,7 @@
         <button type="button" class="close" data-dismiss="alert" >
             <span>&times;</span>
         </button>
-        <strong>登录失败!</strong>
+        <strong id="errorMsg"></strong>
     </div>
 </div>
 </body>

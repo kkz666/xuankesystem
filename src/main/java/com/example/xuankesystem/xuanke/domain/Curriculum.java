@@ -1,17 +1,19 @@
 package com.example.xuankesystem.xuanke.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
 public class Curriculum {
     private int id;
     private int credit;
-    private int limitnumber;
-    private  int currentnumber;
     private String t_name;
     private String c_name;
-    private String detailtime;//注意这里用的是sql的Date
-    private Date totaltime;
+    private int limitnumber;
+    private String detailtime;//注意这里用的是util的Date
+    private  int currentnumber;
+    private Date starttime;
+    private Date endtime;
 
     @Override
     public String toString() {
@@ -23,7 +25,8 @@ public class Curriculum {
                 ", t_name='" + t_name + '\'' +
                 ", c_name='" + c_name + '\'' +
                 ", detailtime='" + detailtime + '\'' +
-                ", totaltime=" + totaltime +
+                ", starttime=" + starttime +
+                ", endtime=" + endtime +
                 '}';
     }
 
@@ -83,11 +86,18 @@ public class Curriculum {
         this.detailtime = detailtime;
     }
 
-    public Date getTotaltime() {
-        return totaltime;
+    public Date getStarttime() {
+        return starttime;
     }
 
-    public void setTotaltime(Date totaltime) {
-        this.totaltime = totaltime;
+    public void setStarttime(Date starttime) {
+        this.starttime = starttime;
+    }
+    public Date getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
     }
 }

@@ -4,6 +4,7 @@ import com.example.xuankesystem.xuanke.domain.ResultInfo;
 import com.example.xuankesystem.xuanke.domain.User;
 import com.example.xuankesystem.xuanke.service.UserService;
 import com.example.xuankesystem.xuanke.service.impl.UserServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.*;
@@ -37,6 +38,9 @@ public class UpdateServlet extends HttpServlet {
         }else{
             info.setFlag(true);
         }
+        ObjectMapper mapper=new ObjectMapper();
+        response.setContentType("application/json;charset=utf-8");
+        mapper.writeValue(response.getOutputStream(),info);
     }
 
     @Override

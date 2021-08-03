@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!-- 网页使用的语言 -->
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <base href="<%=basePath%>"/>
   <!-- 指定字符集 -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>课程登记</title>
+  <title>修改课程信息</title>
   <style>
     #anniu{
       position:relative;
@@ -18,6 +18,46 @@
   <script src="js/jquery-3.3.1.js"></script>
 
   <script>
+    function getTime(date){
+      var YY =date.getFullYear();
+      var MM = date.getMonth()+1;
+      if(MM<10) MM = '0' + MM;
+      var dd = date.getDate();
+      if(dd<10) dd = '0' + dd;
+      var hh = date.getHours();
+      if(hh<10) hh = '0' + hh;
+      var mm = date.getMinutes();
+      if(mm<10) mm = '0' + mm;
+      var ss = date.getSeconds();
+      if(ss<10) ss = '0' + ss;
+      return  YY+"-"+MM+"-"+dd+" "+hh+":"+mm+":"+ss;
+    }
+
+    //获得日期
+    function getDate(date){
+      var YY =date.getFullYear();
+      var MM = date.getMonth()+1;
+      if(MM<10) MM = '0' + MM;
+      var dd = date.getDate();
+      if(dd<10) dd = '0' + dd;
+
+      return  YY+"-"+MM+"-"+dd;
+    }
+    //数据回显
+    $.get("curriculumEchoServlet",{},function (data) {
+      var sdate = new Date(data[0].starttime);
+      var edate = new Date(data[0].endtime);
+
+      $('#c_name').val(data[0].c_name+"");
+      $('#credit').val(data[0].credit+"");
+      $('#t_name').val(data[0].t_name+"");
+      $('#limitnumber').val(data[0].limitnumber+"");
+      $('#currentnumber').val(data[0].currentnumber+"");
+      $('#starttime').val(getDate(sdate));//data[0].starttime
+      $('#endtime').val(getDate(edate));//data[0].endtime
+      $('#detailtime').val(data[0].detailtime+"");
+    });
+
     //校验课程名称
     function checkc_name() {
       //1.获取课程名称
@@ -128,12 +168,12 @@
                 && checkDetailtime()){
           //校验通过,发送ajax请求，提交表单的数据   username=zhangsan&password=123
 
-          $.post("curriculumRegistServlet",$(this).serialize(),function(data){
+          $.post("curriculumUpdateServlet",$(this).serialize(),function(data){
             //处理服务器响应的数据  data  {flag:true,errorMsg:"注册失败"}
 
             if(data.flag){
               //注册成功，跳转成功页面
-              location.href="register_ok.html";
+              location.href="curriculumupdate_ok.html";
             }else{
               //注册失败,给errorMsg添加提示信息
               $("#errorMsg").html(data.errorMsg);
@@ -187,11 +227,11 @@
 
     <div class="form-group">
       <label for="starttime">课程开始时间</label>
-      <input type="date" id="starttime" class="form-control" name="starttime" placeholder="请输入课程开始时间"/>
+      <input type="date" id="starttime" class="form-control" name="starttime" placeholder="请输入课程开始时间" th:value="${#dates.format(.starttime, 'yyyy-MM-dd')}"  />
     </div>
     <div class="form-group">
       <label for="endtime">课程结束时间</label>
-      <input type="date" id="endtime" class="form-control" name="endtime" placeholder="请输入课程结束时间"/>
+      <input type="date" id="endtime" class="form-control" name="endtime" placeholder="请输入课程结束时间" />
     </div>
     <div class="form-group">
       <label for="detailtime">具体时间</label>
@@ -200,7 +240,9 @@
     <div class="form-group" style="text-align: center" id="anniu">
       <input class="btn btn-primary" type="submit" value="提交" />
       <input class="btn btn-default" type="reset" value="重置" />
-      <input class="btn btn-default" type="button" value="返回"/>
+      <a href="curriculumlistshow.html">
+        <input class="btn btn-default" type="button" value="返回"/>
+      </a>
     </div>
   </form>
 </div>
