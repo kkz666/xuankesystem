@@ -150,9 +150,10 @@
                             //注册成功，跳转成功页面
                             location.href="listshow1.html";
                         }else{
+                            var picture=document.getElementById("picture");
+                            picture.src="checkCode?"+new Date().getTime();
                             //注册失败,给errorMsg添加提示信息
                             $("#errorMsg").html(data.errorMsg);
-
                         }
                     });
 
@@ -210,7 +211,7 @@
             <input type="radio" name="sex" value="女"  />女
         </div>
         <input type="text" id="check" name="check" class="check">
-        <img src="checkCode" height="32px" alt="" onclick="changeCheckCode(this)">
+        <img src="checkCode" height="32px" alt="" onclick="changeCheckCode(this)" id="picture">
         <script type="text/javascript">
             //图片点击事件
             function changeCheckCode(img) {

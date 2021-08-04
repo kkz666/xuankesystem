@@ -25,6 +25,7 @@ public class CurriculumDeleteServlet extends HttpServlet {
             info.setErrorMsg("删除失败");
         }else{
             info.setFlag(true);
+            request.getRequestDispatcher("/curriculumdelete_ok.html").forward(request,response);
         }
         ObjectMapper mapper=new ObjectMapper();
         response.setContentType("application/json;charset=utf-8");

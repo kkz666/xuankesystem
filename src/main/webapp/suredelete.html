@@ -5,7 +5,6 @@
     <title>确认界面</title>
     <script>
         $(function () {
-            $("#sure").click(function(){
                 $.post("sureDeleteServlet",$(this).serialize(),function (data) {
                     //处理服务器响应的数据  data  {flag:true,errorMsg:"注册失败"}
                     if (data.flag) {
@@ -16,7 +15,6 @@
                         alert(data.errorMsg);
                     }
                 });
-            });
         });
     </script>
 </head>

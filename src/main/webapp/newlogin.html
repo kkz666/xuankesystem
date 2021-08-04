@@ -26,7 +26,10 @@
 						location.href="adminselect.html";
 					}else{
 					    //登录失败
+						var picture=document.getElementById("picture");
+						picture.src="checkCode?"+new Date().getTime();
 						$("#errorMsg").html(data.errorMsg);
+
 					}
                 });
             });
@@ -49,7 +52,7 @@
 	      
 	      <div class="form-inline">
 			  <input name="check" type="text" placeholder="请输入验证码" autocomplete="off">
-			  <span><img src="checkCode" alt="" onclick="changeCheckCode(this)"></span>
+			  <span><img src="checkCode" alt="" onclick="changeCheckCode(this)" id="picture"></span>
 			  <script type="text/javascript">
 				  //图片点击事件
 				  function changeCheckCode(img) {

@@ -26,7 +26,7 @@ public class SureDeleteServlet extends HttpServlet {
             info.setErrorMsg("删除失败");
         }else{
             info.setFlag(true);
-            //request.getRequestDispatcher("/delete_ok.html").forward(request,response);
+            request.getRequestDispatcher("/delete_ok.html").forward(request,response);
         }
         ObjectMapper mapper=new ObjectMapper();
         response.setContentType("application/json;charset=utf-8");
