@@ -6,13 +6,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class BaseServlet extends HttpServlet {
     @Override
 protected void service(HttpServletRequest request, HttpServletResponse response)throws ServletException{
     String uri=request.getRequestURI();
-    uri.substring(uri.lastIndexOf('/')+1);
-
+    String methodName=uri.substring(uri.lastIndexOf('/')+1);
+    try {
+        Method method=this.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
+        method.invoke(this,request,response);
+    }catch(NoSuchMethodException e){
+        e.printStackTrace();
+    }catch(InvocationTargetException e){
+        e.printStackTrace();
+    }catch(IllegalAccessException e){
+        e.printStackTrace();
+    }
     }
     public void writeValue(Object obj,HttpServletResponse response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

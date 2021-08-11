@@ -82,4 +82,18 @@ public class User {
         this.admin = admin;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", xuehao='" + xuehao + '\'' +
+                ", zhuanye='" + zhuanye + '\'' +
+                ", banji='" + banji + '\'' +
+                ", admin=" + admin +
+                '}';
+    }
 }

@@ -19,11 +19,12 @@
             //1.给登录按钮绑定单击事件
 			$("#btn_sub").click(function () {
                 //2.发送ajax请求，提交表单数据
-				$.post("loginServlet",$("#loginForm").serialize(),function (data) {
+				$.post("loginServlet",$("#loginForm").serialize(),function (data) {//user/login
 					//data : {flag:false,errorMsg:''}
 					if(data.flag){
 					    //登录成功
-						location.href="adminselect.html";
+						if(data.admin==false)location.href="stuselect.html";
+						else location.href="adminselect.html";
 					}else{
 					    //登录失败
 						var picture=document.getElementById("picture");

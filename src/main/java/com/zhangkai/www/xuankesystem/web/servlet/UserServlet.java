@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-@WebServlet("/user/*")
 public class UserServlet extends BaseServlet {
     private UserService service = new UserServiceImpl();
 

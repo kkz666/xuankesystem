@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
         }catch(InvocationTargetException e){
             e.printStackTrace();
         }
+        //System.out.println(user.getAdmin());
         //查询
         UserService service=new UserServiceImpl();
         User u=service.login(user);
@@ -59,6 +60,7 @@ public class LoginServlet extends HttpServlet {
         //判断登录成功
         if(u!=null){
             request.getSession().setAttribute("user",u);//登录成功标记
+            if(service.findPower(u.getId())==true)info.setAdmin(true);
             info.setFlag(true);
         }
         //响应数据
