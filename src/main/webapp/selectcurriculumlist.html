@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- 网页使用的语言 -->
+<html lang="zh-CN">
+<head>
+  <!-- 指定字符集 -->
+  <meta charset="utf-8">
+  <!-- 使用Edge最新的浏览器的渲染方式 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- viewport视口：网页可以根据设置的宽度自动进行适配，在浏览器的内部虚拟一个容器，容器的宽度与设备的宽度相同。
+  width: 默认宽度与设备的宽度相同
+  initial-scale: 初始的缩放比，为1:1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>课程信息列表</title>
+
+  <!-- 1. 导入CSS的全局样式 -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+  <script src="js/jquery-3.3.1.js"></script>
+  <!-- 3. 导入bootstrap的js文件 -->
+  <script src="js/bootstrap.min.js"></script>
+  <style type="text/css">
+    td, th {
+      text-align: center;
+    }
+  </style>
+  <script>
+    //重写toLocalString方法
+    Date.prototype.toLocaleString = function() {
+      return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日 ";
+    };
+
+    $(function () {
+      $.get("findUserServlet",{},function (data) {
+        //{uid:1,name:'李四'}
+        var msg = "欢迎回来，"+data.name;
+        $("#span_username").html(msg);
+
+      });
+      //查询分类信息
+      $.get("curriculumCategoryServlet",{},function (data) {
+        var lis="";
+        for(var i=0;i<data.length;i++){
+          //时间转换
+          sdate=new Date(data[i].starttime);
+          edate=new Date(data[i].endtime);
+          var startTime = sdate.toLocaleString();
+          var endTime = edate.toLocaleString();
+          lis +="<tr>" +
+                  "<td>" + data[i].c_name+ "</td>" +
+                  "<td>" + data[i].t_name+ "</td>" +
+                  "<td>" + data[i].credit+ "</td>" +
+                  "<td>" + data[i].limitnumber+ "</td>" +
+                  "<td>" + data[i].currentnumber+ "</td>" +
+                  "<td>" + startTime + "</td>" +
+                  "<td>" + endTime+ "</td>" +
+                  "<td>" + data[i].detailtime+ "</td>" +
+                  '<td><a class="btn btn-default btn-sm" href="selectCurriculumServlet?id='+data[i].id+'">选择</a>&nbsp;<a class="btn btn-default btn-sm" href="curriculumDeleteServlet?id='+data[i].id+'">退选</a></td>'+"</tr>";
+        }
+        $("#tab").append(lis);
+      });
+
+      $.get("selectCurriculumServlet",{},function (data){
+        if(data.flag){
+          //登录成功
+          alert(data.errorMsg)
+        }else{
+          //登录失败
+          alert(data.errorMsg);
+        }
+      });
+
+
+
+    });
+
+  </script>
+</head>
+<body>
+<div class="container">
+  <h3 style="text-align: center">课程信息列表</h3>
+  <table border="1" class="table table-bordered table-hover" id='tab'>
+    <tr class="success">
+      <th>课程名称</th>
+      <th>教师名称</th>
+      <th>学分</th>
+      <th>限选人数</th>
+      <th>当前人数</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>详细时间</th>
+      <th>操作</th>
+    </tr>
+
+  </table>
+  <div style="text-align:center">
+    <a href="stuselect.html">
+      <button >返回选择界面</button>
+    </a>
+  </div>
+</div>
+</body>
+</html>

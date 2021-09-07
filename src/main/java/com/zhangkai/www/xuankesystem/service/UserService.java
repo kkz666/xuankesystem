@@ -12,5 +12,7 @@ public interface UserService {
     public User findByUsername(String username);
     public boolean update(User user,int id);
     public User findById(int id);
+    public boolean findPower(int id);
+    public boolean daoRu(List<User>list);
 }
 
