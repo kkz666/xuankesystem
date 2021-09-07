@@ -11,5 +11,6 @@ public interface CurriculumDao {
     public boolean update(Curriculum curriculum, int id);
     public Curriculum findById(int id);
     public boolean delete(Curriculum curriculum);
+    public boolean checkStu_Contains(Curriculum curriculum);
 }
 

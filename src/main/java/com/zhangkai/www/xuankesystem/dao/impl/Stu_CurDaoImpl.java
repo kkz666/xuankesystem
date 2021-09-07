@@ -18,7 +18,86 @@ import java.util.List;
 public class Stu_CurDaoImpl implements Stu_CurDao {
     UserDao userDao=new UserDaoImpl();
     CurriculumDao curriculumDao=new CurriculumDaoImpl();
+
+    /**
+     * 更新课程入选学生数量
+     * @param curriculum
+     * @return
+     */
+    public boolean updatecurriculumnumber(Curriculum curriculum){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs=null;
+        int id=curriculum.getId();
+        int currentnumber=curriculum.getCurrentnumber();
+        int limitnumber=curriculum.getLimitnumber();
+        if(limitnumber==currentnumber)return false;
+        String sql="update curriculum set currentnumber= ? where id= ?";
+        try {
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, currentnumber+1);
+            pstmt.setInt(2, id);
+            if (pstmt.executeUpdate() == 0){
+                JDBCUtils.close(conn, pstmt);
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            JDBCUtils.close(conn, pstmt);
+            return false;
+        }
+        JDBCUtils.close(conn, pstmt);
+        return true;
+    }
+
+    /**
+     * 检查该学生是否已选该课程
+     * @param user
+     * @param curriculum
+     * @return
+     */
+    public boolean checkcontains(User user,Curriculum curriculum){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs=null;
+        int uid=user.getId();
+        int cid=curriculum.getId();
+        String sql="select * from stu_cur where s_id= ? and c_id= ?";
+        try{
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, user.getId());
+            pstmt.setInt(2, curriculum.getId());
+            rs=pstmt.executeQuery();
+            if(!rs.next()) {//没有查到数据返回true
+                JDBCUtils.close(conn, pstmt);
+                return true;
+            }
+            else{
+                JDBCUtils.close(conn, pstmt);
+                return false;//有查到数据返回false
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            JDBCUtils.close(conn, pstmt);
+            return false;
+        }
+    }
+
+    /**
+     * 选课
+     * @param user
+     * @param curriculum
+     * @return
+     */
     public boolean selectcurriculum(User user, Curriculum curriculum){
+        if(!checkcontains(user,curriculum)){
+            return false;
+        }
+        if(!updatecurriculumnumber(curriculum)){
+            return false;
+        }
         Connection conn = null;
         PreparedStatement pstmt = null;
         String sql="insert into stu_cur(s_id,c_id) values(?,?)";
@@ -36,6 +115,12 @@ public class Stu_CurDaoImpl implements Stu_CurDao {
         JDBCUtils.close(conn,pstmt);
         return true;
     }
+
+    /**
+     * 找到学生选中课程的信息通过学生id
+     * @param id
+     * @return
+     */
     public List<Curriculum> findAllSelectCurriculumById(int id){
         List<Curriculum> list = new ArrayList<Curriculum>();
         String sql="SELECT c.* FROM stu_cur AS sc LEFT JOIN USER AS u ON u.id=sc.s_id LEFT JOIN curriculum AS c ON c.id=sc.c_id WHERE sc.s_id= ?";
@@ -70,20 +155,34 @@ public class Stu_CurDaoImpl implements Stu_CurDao {
             }
         }catch(Exception e){
             e.printStackTrace();
+            JDBCUtils.close(conn, pstmt);
             return null;
         }
-        System.out.println(list);
+        JDBCUtils.close(conn, pstmt);
         return list;
     }
-    public boolean TuiKe (int id){
+
+    /**
+     * 退课
+     * @param cid
+     * @param uid
+     * @return
+     */
+    public boolean TuiKe (int cid,int uid){
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
-            String sql = "delete from stu_cur where c_id = ? ";
+            String sql = "delete from stu_cur where c_id = ? and s_id= ?";
             conn = JDBCUtils.getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, id);
-            if (pstmt.executeUpdate() == 0) return false;
+            pstmt.setInt(1, cid);
+            pstmt.setInt(2, uid);
+            System.out.println("c_id="+cid);
+            System.out.println("s_id="+uid);
+            if (pstmt.executeUpdate() == 0){
+                JDBCUtils.close(conn, pstmt);
+                return false;
+            }
         } catch (Exception e) {
             JDBCUtils.close(conn, pstmt);
             return false;

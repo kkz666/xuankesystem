@@ -23,10 +23,12 @@ public class CurriculumDeleteServlet extends HttpServlet {
         if(flag==false){
             info.setFlag(false);
             info.setErrorMsg("删除失败");
+            response.sendRedirect("curriculumdelete_fail.html");
         }else{
             info.setFlag(true);
             request.setCharacterEncoding("utf-8");
-            request.getRequestDispatcher("/curriculumdelete_ok.html").forward(request,response);
+            response.sendRedirect("curriculumdelete_ok.html");
+            //request.getRequestDispatcher("/curriculumdelete_ok.html").forward(request,response);
         }
         ObjectMapper mapper=new ObjectMapper();
         response.setContentType("application/json;charset=utf-8");

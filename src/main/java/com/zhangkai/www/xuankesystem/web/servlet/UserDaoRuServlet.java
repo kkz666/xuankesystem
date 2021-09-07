@@ -19,7 +19,7 @@ public class UserDaoRuServlet extends HttpServlet {
         boolean flag=false;
         System.out.println("前戏");
         try{
-            List<User> list=CreateExcel.readExcel("/xuankesystem/src/main/resources/ReadExcel.xlsx");
+            List<User> list=CreateExcel.readExcel("/xuankesystem/src/main/resources/userReadExcel.xlsx");
             flag=service.daoRu(list);
             System.out.println("导入用户列表已执行");
         }catch(Exception e){
@@ -27,10 +27,12 @@ public class UserDaoRuServlet extends HttpServlet {
         }
         if(flag==false){
             System.out.println("导入失败");
+            //response.sendRedirect("userDaoRu_fail.html");
         }else{
             System.out.println("导入成功");
-            request.getRequestDispatcher("/listshow1.html").forward(request,response);
+            //request.getRequestDispatcher("/listshow1.html").forward(request,response);
         }
+        response.sendRedirect("userDaoRu_ok.html");
     }
 
     @Override

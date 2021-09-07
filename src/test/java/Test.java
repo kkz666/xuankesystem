@@ -12,9 +12,7 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Test {
     /*@org.junit.Test
@@ -243,7 +241,7 @@ public class Test {
     @org.junit.Test
     public void readExcel() throws Exception {
         List<User> list=new ArrayList<>();
-    String filePath="/xuankesystem/src/main/resources/ReadExcel.xlsx";
+    String filePath="/xuankesystem/src/main/resources/userReadExcel.xlsx";
         FileInputStream fis = new FileInputStream(
                 new File(filePath));
         //打开需要读取的文件
@@ -318,5 +316,15 @@ public class Test {
             }
         }
         fis.close();
+    }
+    @org.junit.Test
+    public void timetest(){
+        Date date=new Date();
+        int hours=date.getHours();
+        System.out.println(hours);
+
+        GregorianCalendar calendar = new GregorianCalendar();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        System.out.println( hour);
     }
 }

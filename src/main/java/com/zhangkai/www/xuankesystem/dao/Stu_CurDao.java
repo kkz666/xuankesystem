@@ -9,5 +9,7 @@ import java.util.List;
 public interface Stu_CurDao {
     public boolean selectcurriculum(User user, Curriculum curriculum);
     public List<Curriculum> findAllSelectCurriculumById(int id);
-    public boolean TuiKe (int id);
+    public boolean TuiKe (int cid,int uid);
+    public boolean checkcontains(User user,Curriculum curriculum);
+    public boolean updatecurriculumnumber(Curriculum curriculum);
 }

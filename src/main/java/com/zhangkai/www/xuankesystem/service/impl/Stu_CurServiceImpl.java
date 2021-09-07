@@ -18,7 +18,7 @@ public class Stu_CurServiceImpl implements Stu_CurService {
     public List<Curriculum> findAllSelectCurriculumById(int id){
         return stu_CurDao.findAllSelectCurriculumById(id);
     }
-    public boolean TuiKe(int id){
-        return stu_CurDao.TuiKe(id);
+    public boolean TuiKe(int cid,int uid){
+        return stu_CurDao.TuiKe(cid,uid);
     }
 }

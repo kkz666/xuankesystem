@@ -35,7 +35,6 @@
         //{uid:1,name:'李四'}
         var msg = "欢迎回来，"+data.name;
         $("#span_username").html(msg);
-
       });
       //查询分类信息
       $.get("curriculumCategoryServlet",{},function (data) {
@@ -55,7 +54,7 @@
                   "<td>" + startTime + "</td>" +
                   "<td>" + endTime+ "</td>" +
                   "<td>" + data[i].detailtime+ "</td>" +
-                  '<td><a class="btn btn-default btn-sm" href="selectCurriculumServlet?id='+data[i].id+'">选择</a>&nbsp;<a class="btn btn-default btn-sm" href="curriculumDeleteServlet?id='+data[i].id+'">退选</a></td>'+"</tr>";
+                  '<td><a class="btn btn-default btn-sm" href="selectCurriculumServlet?id='+data[i].id+'">选择</a></tr>';
         }
         $("#tab").append(lis);
       });

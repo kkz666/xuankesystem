@@ -20,8 +20,8 @@ public class UserDaoChuServlet extends HttpServlet {
         }catch(Exception e){
             e.printStackTrace();
         }
-
-        request.getRequestDispatcher("/listshow1.html").forward(request,response);
+        response.sendRedirect("userDaoChu_ok.html");
+        //request.getRequestDispatcher("/listshow1.html").forward(request,response);
     }
 
     @Override

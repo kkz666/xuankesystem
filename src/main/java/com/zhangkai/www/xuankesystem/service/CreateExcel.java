@@ -39,7 +39,7 @@ public class CreateExcel {
         public static void createExcelByBeans(List<User> data) throws Exception{
             try {
                 //创建一个File对象,用来最后写入数据到这个文件
-                File excelFile = new File("/xuankesystem/src/main/resources/writeExcel.xlsx");
+                File excelFile = new File("/xuankesystem/src/main/resources/userWriteExcel.xlsx");
                 FileOutputStream excelOutputStream = new FileOutputStream(excelFile);
                 //开始创建Excel文件对象
                 XSSFWorkbook workbook = new XSSFWorkbook();
@@ -173,7 +173,7 @@ public class CreateExcel {
             data.add(11);
             System.out.println(data);
             //创建一个File对象,用来最后写入数据到这个文件
-            File excelFile = new File("/xuankesystem/src/main/resources/writeExcel.xlsx");
+            File excelFile = new File("/xuankesystem/src/main/resources/userWriteExcel.xlsx");
             FileOutputStream excelOutputStream = new FileOutputStream(excelFile);
             //开始创建Excel文件对象
             XSSFWorkbook workbook = new XSSFWorkbook();

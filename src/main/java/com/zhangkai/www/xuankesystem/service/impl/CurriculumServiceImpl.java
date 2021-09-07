@@ -37,8 +37,7 @@ public class CurriculumServiceImpl implements CurriculumService {
         if(curriculum==null){
             return false;
         }else {
-            curriculumDao.delete(curriculum);
-            return true;
+           return curriculumDao.delete(curriculum);
         }
     }
 }

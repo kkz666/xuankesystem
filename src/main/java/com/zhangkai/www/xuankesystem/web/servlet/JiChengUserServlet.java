@@ -238,7 +238,7 @@ public class JiChengUserServlet extends BaseServlet {
         boolean flag=false;
         System.out.println("前戏");
         try{
-            List<User> list=CreateExcel.readExcel("/xuankesystem/src/main/resources/ReadExcel.xlsx");
+            List<User> list=CreateExcel.readExcel("/xuankesystem/src/main/resources/userReadExcel.xlsx");
             flag=service.daoRu(list);
             System.out.println("导入用户列表已执行");
         }catch(Exception e){
